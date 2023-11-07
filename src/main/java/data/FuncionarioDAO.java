@@ -12,17 +12,16 @@ import java.util.List;
 public class FuncionarioDAO {
 
     private static final String CREATE_FUNCIONARIO = "insert into funcionario values (?,?,?,?,?,?,?,?,?,?)";
-    
+
     private static final String DELETE_FUNCIONARIO = "delete from funcionario where id_funcionario = ?";
-    
+
     private static final String UPDATE_FUNCIONARIO = "update funcionario set id_tipo_id=?, numero_id=?,"
-            
             + " nombres=?, apellidos=?, direccion=?, telefono=?,fecha_nacimiento=?, id_estado_civil=?, id_sexo=? "
             + " where id_funcionario = ?";
-    
+
     private static final String GET_FUNCIONARIOS = "select * from funcionario";
-    
-    private static final String GET_FUNCIONARIO_BY_ID = "select * from funcionario where id_funcionario= ? ";
+
+    private static final String GET_FUNCIONARIO_BY_ID = "select * from funcionario where id_funcionario = ? ";
 
     public void createFuncionario(Funcionario funcionario) throws SQLException {
 

@@ -2,7 +2,6 @@ package com.iudigital.presentacion;
 
 import controller.FuncionarioController;
 import domain.Funcionario;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -23,6 +22,11 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void listarFuncionarios() {
+
+        Funcionario funcionario = new Funcionario();
+        funcionario.setNombres("--SELECCIONE--");
+        JCombox_Funcionarios_Actu.addItem(funcionario);
+        JCombox_Funcionarios_Eli.addItem(funcionario);
         try {
             List<Funcionario> funcionarios = funcionarioController.getFuncionarios();
             if (funcionarios.isEmpty()) {
@@ -31,21 +35,21 @@ public class Main extends javax.swing.JFrame {
 
             defaultTableModel.setRowCount(funcionarios.size());
             int row = 0;
-            for (Funcionario funcionario : funcionarios) {
-                defaultTableModel.setValueAt(funcionario.getId_funcionario(), row, 0);
-                defaultTableModel.setValueAt(funcionario.getTipo_id(), row, 1);
-                defaultTableModel.setValueAt(funcionario.getNumero_id(), row, 2);
-                defaultTableModel.setValueAt(funcionario.getNombres(), row, 3);
-                defaultTableModel.setValueAt(funcionario.getApellidos(), row, 4);
-                defaultTableModel.setValueAt(funcionario.getDireccion(), row, 5);
-                defaultTableModel.setValueAt(funcionario.getTelefono(), row, 6);
-                defaultTableModel.setValueAt(funcionario.getFecha_nacimiento(), row, 7);
-                defaultTableModel.setValueAt(funcionario.getId_estado_civil(), row, 8);
-                defaultTableModel.setValueAt(funcionario.getId_sexo(), row, 9);
+            for (Funcionario func : funcionarios) {
+                defaultTableModel.setValueAt(func.getId_funcionario(), row, 0);
+                defaultTableModel.setValueAt(func.getTipo_id(), row, 1);
+                defaultTableModel.setValueAt(func.getNumero_id(), row, 2);
+                defaultTableModel.setValueAt(func.getNombres(), row, 3);
+                defaultTableModel.setValueAt(func.getApellidos(), row, 4);
+                defaultTableModel.setValueAt(func.getDireccion(), row, 5);
+                defaultTableModel.setValueAt(func.getTelefono(), row, 6);
+                defaultTableModel.setValueAt(func.getFecha_nacimiento(), row, 7);
+                defaultTableModel.setValueAt(func.getId_estado_civil(), row, 8);
+                defaultTableModel.setValueAt(func.getId_sexo(), row, 9);
                 row++;
 
-                JCombox_Funcionarios_Eli.addItem(funcionario);
-                JCombox_Funcionarios_Actu.addItem(funcionario);
+                JCombox_Funcionarios_Eli.addItem(func);
+                JCombox_Funcionarios_Actu.addItem(func);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -83,9 +87,9 @@ public class Main extends javax.swing.JFrame {
         btn_guardar_reg = new javax.swing.JButton();
         btn_limpiar_reg = new javax.swing.JButton();
         JCombox_Tipo_Id_reg = new javax.swing.JComboBox<>();
-        JCombox_Id_Estado_Civil = new javax.swing.JComboBox<>();
-        JCombox_Id_sexo = new javax.swing.JComboBox<>();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        JCombox_Id_Estado_Civil_reg = new javax.swing.JComboBox<>();
+        JCombox_Id_sexo_reg = new javax.swing.JComboBox<>();
+        jDateChooser_reg = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btn_buscar = new javax.swing.JButton();
@@ -204,9 +208,9 @@ public class Main extends javax.swing.JFrame {
 
         JCombox_Tipo_Id_reg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Registro Civil", "TI", "CC", "CE", "Pasaporte" }));
 
-        JCombox_Id_Estado_Civil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soltero", "Casado", "Divorciado", "Union libre", "Viudo" }));
+        JCombox_Id_Estado_Civil_reg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soltero", "Casado", "Divorciado", "Union libre", "Viudo" }));
 
-        JCombox_Id_sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hombre", "Mujer" }));
+        JCombox_Id_sexo_reg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hombre", "Mujer" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -231,19 +235,24 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(56, 56, 56)
                         .addComponent(txt_nombres_reg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(56, 56, 56)
-                            .addComponent(txt_numero_id_reg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(56, 56, 56)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txt_id_funcionario_reg, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                .addComponent(JCombox_Tipo_Id_reg, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(56, 56, 56)
+                                .addComponent(txt_numero_id_reg, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(56, 56, 56)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_id_funcionario_reg, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(JCombox_Tipo_Id_reg, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(37, 37, 37)
+                        .addComponent(btn_guardar_reg, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_limpiar_reg, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -251,16 +260,10 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(56, 56, 56)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(JCombox_Id_Estado_Civil, 0, 200, Short.MAX_VALUE)
-                            .addComponent(JCombox_Id_sexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(541, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_limpiar_reg, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_guardar_reg, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                            .addComponent(JCombox_Id_Estado_Civil_reg, 0, 200, Short.MAX_VALUE)
+                            .addComponent(JCombox_Id_sexo_reg, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jDateChooser_reg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(286, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,7 +271,9 @@ public class Main extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txt_id_funcionario_reg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_id_funcionario_reg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_guardar_reg)
+                    .addComponent(btn_limpiar_reg))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -296,20 +301,16 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser_reg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
-                    .addComponent(JCombox_Id_Estado_Civil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JCombox_Id_Estado_Civil_reg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
-                    .addComponent(JCombox_Id_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_guardar_reg)
-                    .addComponent(btn_limpiar_reg))
-                .addGap(29, 29, 29))
+                    .addComponent(JCombox_Id_sexo_reg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPFun1Layout = new javax.swing.GroupLayout(jPFun1);
@@ -322,8 +323,8 @@ public class Main extends javax.swing.JFrame {
             jPFun1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPFun1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTPanels.addTab("Registrar Funcionario", jPFun1);
@@ -671,7 +672,31 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_telefono_regActionPerformed
 
     private void btn_guardar_regActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardar_regActionPerformed
-        // TODO add your handling code here:
+
+        long funcionario_id = Long.parseLong(txt_id_funcionario_reg.getText());
+        long tipo_id = Long.parseLong(txt_id_funcionario_reg.getText());
+        long numero_id = Long.parseLong(txt_numero_id_reg.getText());
+        String nombres = txt_nombres_reg.getText();
+        String fechaNacimiento = jDateChooser_reg.toString();
+
+        Funcionario funcionario = new Funcionario();
+        funcionario.setId_funcionario(funcionario_id);
+        funcionario.setTipo_id(tipo_id);
+        funcionario.setNumero_id(numero_id);
+        funcionario.setNombres(nombres);
+        funcionario.setApellidos(txt_apellidos_reg.getText());
+        funcionario.setDireccion(txt_direccion_reg.getText());
+        funcionario.setTelefono(txt_telefono_reg.getText());
+        funcionario.setFecha_nacimiento(LocalDate.parse(fechaNacimiento));
+        funcionario.setId_estado_civil(JCombox_Id_Estado_Civil_reg.getSelectedIndex() + 1);
+        funcionario.setId_sexo(JCombox_Id_sexo_reg.getSelectedIndex() + 1);
+
+        try {
+            funcionarioController.createFuncionario(funcionario);
+            listarFuncionarios();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btn_guardar_regActionPerformed
 
     private void btn_limpiar_regActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiar_regActionPerformed
@@ -717,17 +742,28 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_limpiar_actuActionPerformed
 
     private void btn_guardar_actuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardar_actuActionPerformed
-        long funcionario_id = Long.parseLong(txt_id_actu.getText());
+        String[] datos = JCombox_Funcionarios_Actu.getSelectedItem().toString().split(" ");
+        long funcionario_id = Long.parseLong(datos[0]);
         long tipo_id = Long.parseLong(txt_id_actu.getText());
         long numero_id = Long.parseLong(txt_id_actu.getText());
         String nombres = txt_nombres_actu.getText();
-        String apellidos = txt_apellidos_actu.getText();
-        String direccion = txt_direccion_actu.getText();
-        String telefono = txt_telefono_actu.getText();
-        String fechaNacimiento = JDateChooser_Nacimiento.getDate().toString();
-       
+        String fechaNacimiento = JDateChooser_Nacimiento.toString();
+
+        Funcionario funcionario = new Funcionario();
+        funcionario.setId_funcionario(funcionario_id);
+        funcionario.setTipo_id(tipo_id);
+        funcionario.setNumero_id(numero_id);
+        funcionario.setNombres(nombres);
+        funcionario.setApellidos(txt_apellidos_actu.getText());
+        funcionario.setDireccion(txt_direccion_actu.getText());
+        funcionario.setTelefono(txt_telefono_actu.getText());
+        funcionario.setFecha_nacimiento(LocalDate.parse(fechaNacimiento));
+        funcionario.setId_estado_civil(JCombox_Estado_Civil_Actu.getSelectedIndex() + 1);
+        funcionario.setId_sexo(JCombox_Id_Sexo_Actu.getSelectedIndex() + 1);
+
         try {
-            funcionarioController.updateFuncionario(funcionario_id); 
+            funcionarioController.updateFuncionario(funcionario_id, funcionario);
+            listarFuncionarios();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -801,9 +837,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> JCombox_Estado_Civil_Actu;
     private javax.swing.JComboBox<Funcionario> JCombox_Funcionarios_Actu;
     private javax.swing.JComboBox<Funcionario> JCombox_Funcionarios_Eli;
-    private javax.swing.JComboBox<String> JCombox_Id_Estado_Civil;
+    private javax.swing.JComboBox<String> JCombox_Id_Estado_Civil_reg;
     private javax.swing.JComboBox<String> JCombox_Id_Sexo_Actu;
-    private javax.swing.JComboBox<String> JCombox_Id_sexo;
+    private javax.swing.JComboBox<String> JCombox_Id_sexo_reg;
     private javax.swing.JComboBox<String> JCombox_Tipo_Id_Actu;
     private javax.swing.JComboBox<String> JCombox_Tipo_Id_reg;
     private com.toedter.calendar.JDateChooser JDateChooser_Nacimiento;
@@ -814,7 +850,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar_reg;
     private javax.swing.JButton btn_limpiar_actu;
     private javax.swing.JButton btn_limpiar_reg;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser_reg;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
